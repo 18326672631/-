@@ -1,0 +1,14 @@
+server:
+  port: 8002
+spring:
+  profiles:
+    active: dev
+  application:
+    name: service-oss
+aliyun:
+  oss:
+    file:
+      endpoint: oss-cn-shanghai.aliyuncs.com
+      accessKeyId: LTAI5tK2Fp4LyFQMJPdQtSQM
+      KeySecret: a0THp2Nd0dWtG9YEznmZmbtT09BsXA
+      bucketName: edu-guli-boen

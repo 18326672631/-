@@ -1,0 +1,31 @@
+server:
+  port: 8221
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+#开启服务发现路由
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: edu
+          uri: lb://edu
+          predicates:
+            - Path=/eduservice/**
+        - id: sta
+          uri: lb://sta
+          predicates:
+            - Path=/staservice/**
+        - id: ucenter
+          uri: lb://ucenter
+          predicates:
+            - Path=/educenter/**
+        - id: acl
+          uri: lb://acl
+          predicates:
+            - Path=/admin/**

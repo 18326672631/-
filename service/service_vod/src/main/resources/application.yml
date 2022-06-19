@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: vod
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 50MB
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+#      max-request-size 为一次请求中所有文件总大小
+#      max-file-size    单个文件大小限制
+server:
+  port: 8010
+aliyun:
+  vod:
+    file:
+      accessKeyId: LTAI5tK2Fp4LyFQMJPdQtSQM
+      accessKeySecret: a0THp2Nd0dWtG9YEznmZmbtT09BsXA
+

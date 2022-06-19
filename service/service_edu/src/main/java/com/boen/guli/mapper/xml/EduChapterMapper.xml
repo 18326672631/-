@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boen.guli.mapper.EduChapterMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.boen.guli.pojo.EduChapter">
+        <id column="id" property="id" />
+        <result column="course_id" property="courseId" />
+        <result column="title" property="title" />
+        <result column="sort" property="sort" />
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="gmt_modified" property="gmtModified" />
+    </resultMap>
+
+
+    <resultMap id="chapterMap" type="com.boen.guli.pojo.chapter.ChapterVo">
+        <id column="cid" property="id"></id>
+        <result column="ctitle" property="title"></result>
+        <collection property="videoVoList" ofType="com.boen.guli.pojo.chapter.VideoVo">
+            <id column="vid" property="id"></id>
+            <result column="vtitle" property="title"></result>
+            <result column="video_source_id" property="videosourceId"></result>
+        </collection>
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, course_id, title, sort, gmt_create, gmt_modified
+    </sql>
+
+    <select id="getChapterofCourseId" parameterType="String" resultMap="chapterMap">
+-- SELECT * FROM  edu_chapter INNER JOIN edu_video on edu_chapter.course_id= "18"
+-- and edu_video.chapter_id=edu_chapter.id WHERE edu_video.course_id ="18";
+        select edu_chapter.id cid,
+               edu_video.id vid,
+               edu_chapter.title ctitle,
+               edu_video.title vtitle,
+               edu_video.video_source_id
+        from edu_chapter left join edu_video
+        on   edu_video.chapter_id = edu_chapter.id
+        <where>
+                 <if test="courseId!=null">
+                     edu_chapter.course_id =#{courseId}
+                 </if>
+        </where>
+    </select>
+
+</mapper>
